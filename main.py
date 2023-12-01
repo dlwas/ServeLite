@@ -46,11 +46,11 @@ class DatabaseManager:
 def api_documentation():
     documentation = {
         '/api/update': {
-            'method': 'POST',
+            'method': 'GET',
             'description': 'Updates databases with new data from CSV files.',
             'parameters': None,
             'returns': 'JSON object with status message and list of updates.',
-            'example_api': f'POST http://localhost:{Config.SERVER_PORT}/api/update',
+            'example_api': f'GET http://localhost:{Config.SERVER_PORT}/api/update',
             'example_cli': 'python main.py -update'
         },
         '/api/databases': {
@@ -84,32 +84,54 @@ def api_documentation():
 @app.route('/api/databases', methods=['GET'])
 def list_databases():
     try:
-        db_files = [f for f in os.listdir(
-            Config.DB_FOLDER) if f.endswith('.sqlite3')]
+        db_files = [f for f in os.listdir(Config.DB_FOLDER) if f.endswith('.sqlite3')]
         if not db_files:
             return jsonify({"status": "error", "error": "No databases found."}), 404
 
         databases = []
         for db_file in db_files:
             db_name = os.path.splitext(db_file)[0]
+            db_path = os.path.join(Config.DB_FOLDER, db_file)
+
+            # Query to get tables in the database
             query = "SELECT name FROM sqlite_master WHERE type='table';"
             tables = DatabaseManager.execute_query(db_name, query)
-            databases_info = {'database': db_name, 'tables': []}
+
+            # Initialize variables to accumulate rows and columns across all tables
+            total_rows = 0
+            total_columns = 0
+
+            # Gather information for each table
             for table_name in tables:
+                # Count rows in the table
                 row_query = f"SELECT COUNT(*) FROM {table_name[0]};"
-                row_count = DatabaseManager.execute_query(
-                    db_name, row_query, False)[0]
-                databases_info['tables'].append({
-                    "name": table_name[0],
-                    "rows": row_count
-                })
-            databases.append(databases_info)
+                row_count = DatabaseManager.execute_query(db_name, row_query, False)[0]
+                total_rows += row_count
+
+                # Count columns in the table
+                column_query = f"PRAGMA table_info({table_name[0]});"
+                columns = DatabaseManager.execute_query(db_name, column_query)
+                total_columns += len(columns)
+
+            # Get the size of the database file in kilobytes
+            size_kb = os.path.getsize(db_path) / 1024
+
+            # Add database information to the response
+            databases.append({
+                "name": db_name,
+                "rows": total_rows,
+                "columns": total_columns,
+                "size": size_kb
+            })
+
         return jsonify({"status": "success", "databases": databases})
+
     except Exception as e:
         return jsonify({"status": "error", "error": str(e)}), 500
 
 
-@app.route('/api/update', methods=['POST'])
+
+@app.route('/api/update', methods=['GET'])
 def update_databases():
     try:
         updates = []
@@ -159,8 +181,7 @@ def execute_sql():
             cursor = conn.cursor()
 
             for db_name in db_names[1:]:
-                conn.execute(f'ATTACH DATABASE "{os.path.join(
-                    Config.DB_FOLDER, db_name + ".sqlite3")}" AS {db_name}')
+                conn.execute(f'ATTACH DATABASE "{os.path.join(Config.DB_FOLDER, db_name + ".sqlite3")}" AS {db_name}')
 
             cursor.execute(sql_query)
             rows = cursor.fetchall()

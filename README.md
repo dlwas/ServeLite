@@ -1,13 +1,13 @@
 # ServeLite Documentation
 
 ```
-    Application for local or hobbyist use only. 
+    Application for local or hobbyist use only.
     Do not use it in production or any other environment where data may be susceptible to interception.
 
     Work in progress
 ```
 
-ServeLite is an application that functions as a Python database with Flask. 
+ServeLite is an application that functions as a Python database with Flask.
 It provides an API and CLI with customizable arguments, employs SQLite3 as its database engine, and incorporates a file-based database structure.
 
 ## Installation
@@ -51,13 +51,13 @@ Example API Request: GET http://localhost:3000/api/databases
 Example CLI Command: python main.py -databases
 ```
 
-### /api/update (POST)
+### /api/update (GET)
 
 ```
-Method: POST
+Method: GET
 Description: Updates databases with new data from CSV files.
 Returns: JSON object with a status message and a list of updates.
-Example API Request: POST http://localhost:3000/api/update
+Example API Request: GET http://localhost:3000/api/update
 Example CLI Command: python main.py -update
 ```
 
