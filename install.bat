@@ -17,13 +17,6 @@ if %errorlevel% equ 0 (
     )
 )
 
-echo Cloning ServeLite repository...
-git clone https://github.com/dlwas/ServeLite.git
-if %errorlevel% neq 0 (
-    echo Failed to clone ServeLite repository. Exiting.
-    exit /b 1
-)
-
 python -m pip install -r requirements.txt
 if %errorlevel% neq 0 (
     echo Failed to install Python packages. Cleaning up...
