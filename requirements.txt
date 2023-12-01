@@ -1,0 +1,3 @@
+Flask==2.1.2
+Flask-Caching
+pandas==1.4.1
