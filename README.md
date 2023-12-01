@@ -43,8 +43,8 @@ ServeLite provides the following API endpoints:
 Method: GET
 Description: Lists all databases, providing details such as name, row count, size, and number of columns.
 Returns: JSON object with a status, error message (if any), and a list of database details.
-Example API Request: GET http://localhost:3000/api/databases
-Example CLI Command: python main.py -databases
+Example API Request: GET `http://localhost:3000/api/databases`
+Example CLI Command: `python main.py -databases`
 ```
 
 ### /api/update (POST)
