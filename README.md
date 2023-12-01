@@ -7,7 +7,8 @@
     Work in progress
 ```
 
-ServeLite is an application that functions as a Python database with Flask. It provides an API and CLI with customizable arguments, employs SQLite3 as its database engine, and incorporates a file-based database structure.
+ServeLite is an application that functions as a Python database with Flask. 
+It provides an API and CLI with customizable arguments, employs SQLite3 as its database engine, and incorporates a file-based database structure.
 
 ## Installation
 
@@ -75,7 +76,8 @@ Example CLI Command: python main.py -show TABLE_NAME
 
 ```
 Method: GET
-Description: Executes a given SQL query across all databases and returns the results. This SQL endpoint provides support for SQL joins, allowing you to retrieve data from multiple database tables and combine it into a single result set.
+Description: Executes a given SQL query across all databases and returns the results.
+This SQL endpoint provides support for SQL joins, allowing you to retrieve data from multiple database tables and combine it into a single result set.
 Parameters: sql (string, required)
 Returns: JSON array of query results, with each row represented as a dictionary.
 Example API Request: GET http://localhost:3000/api/sql?sql=SQL_QUERY
