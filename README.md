@@ -8,13 +8,14 @@ ServeLite is a versatile application that serves as a Python database with Flask
 
 ## Installation
 
-To set up ServeLite, simply run the `install` script.
+1. Clone the repository.
+2. To set up ServeLite, simply run the install script.
 
 ```
     install.bat
 ```
 
-The script will install Python if you don't have it, clone the repository, and set up everything for you.
+The script will install Python if you don't have it and set up everything for you.
 
 ## Usage
 
