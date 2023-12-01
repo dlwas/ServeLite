@@ -7,7 +7,7 @@
     Work in progress
 ```
 
-ServeLite is a versatile application that serves as a Python database with Flask. It offers a CLI with customizable arguments, utilizes SQLite3 as its database engine, and supports a file-based database structure.
+ServeLite is an application that functions as a Python database with Flask. It provides an API and CLI with customizable arguments, employs SQLite3 as its database engine, and incorporates a file-based database structure.
 
 ## Installation
 
