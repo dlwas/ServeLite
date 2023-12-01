@@ -1,7 +1,8 @@
 # ServeLite Documentation
 
 ```
-    Application for local or hobbyist use only. Do not use it in production or any other environment where data may be susceptible to interception.
+    Application for local or hobbyist use only. 
+    Do not use it in production or any other environment where data may be susceptible to interception.
 
     Work in progress
 ```
