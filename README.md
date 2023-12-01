@@ -1,6 +1,8 @@
 # ServeLite Documentation
 
 ```
+    Application for local or hobbyist use only. Do not use it in production or any other environment where data may be susceptible to interception.
+
     Work in progress
 ```
 
@@ -43,8 +45,8 @@ ServeLite provides the following API endpoints:
 Method: GET
 Description: Lists all databases, providing details such as name, row count, size, and number of columns.
 Returns: JSON object with a status, error message (if any), and a list of database details.
-Example API Request: GET `http://localhost:3000/api/databases`
-Example CLI Command: `python main.py -databases`
+Example API Request: GET http://localhost:3000/api/databases
+Example CLI Command: python main.py -databases
 ```
 
 ### /api/update (POST)
@@ -72,7 +74,7 @@ Example CLI Command: python main.py -show TABLE_NAME
 
 ```
 Method: GET
-Description: Executes a given SQL query across all databases and returns the results.
+Description: Executes a given SQL query across all databases and returns the results. This SQL endpoint provides support for SQL joins, allowing you to retrieve data from multiple database tables and combine it into a single result set.
 Parameters: sql (string, required)
 Returns: JSON array of query results, with each row represented as a dictionary.
 Example API Request: GET http://localhost:3000/api/sql?sql=SQL_QUERY
